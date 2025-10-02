@@ -19,7 +19,7 @@ const App = () => {
     setInfo((prev) => ({ ...prev, userQuery: e.target.value, error: "" }));
   }, []);
 
-  const handleGenerate = useCallback(async() => {
+  const handleGenerate = useCallback(async () => {
     if (info.userQuery.trim() === "") {
       toast.error("Please enter a valid query");
       return setInfo((prev) => ({
@@ -28,9 +28,15 @@ const App = () => {
       }));
     }
 
-    setInfo((prev) => ({ ...prev, isLoading: true, error: '' }));
+    setInfo((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-    await generateContent()
+    const response = await generateContent(info.userQuery);
+    setInfo((prev) => ({
+      ...prev,
+      isLoading: false,
+      error: "",
+      generatedCode: response,
+    }));
   }, [info.userQuery]);
 
   return (
@@ -50,7 +56,7 @@ const App = () => {
           style={{ color: "red" }}
         />
         {info?.generatedCode ? (
-          info?.generatedCode
+          <span>{info?.generatedCode}</span>
         ) : info.isLoading ? (
           <div className="loading-container">
             <FontAwesomeIcon icon={faSpinner} spin size="2x" />
