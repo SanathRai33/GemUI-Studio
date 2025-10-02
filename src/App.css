@@ -3,40 +3,80 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* background-color: #f0f0f0; */
+  border: 1px solid #4b4b4b;
+
+  .preview-container {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .empty-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
-  to {
-    transform: rotate(360deg);
+  
+  .input-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #777676;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .preview-textarea {
+      width: 100%;
+      height: 50%;
+      border: none;
+      outline: none;
+      padding: 15px 20px 25px 20px;
+      box-sizing: border-box;
+      resize: none;
+      scrollbar-width: none;
+      border-radius: 10px 0 0 10px;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+    }
+  
+    .generate-button {
+      height: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      padding: 20px;
+      border-radius: 0 10px 10px 0;
+
+      span {
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+      }
+    }
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
