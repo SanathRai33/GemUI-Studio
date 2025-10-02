@@ -85,3 +85,16 @@ body {
   width: 100% !important;
   background-color: #000000 !important;
 }
+
+.error-container {
+  height: 50px;
+  width: 100%;
+  color: #ff0000 !important;
+  background-color: #000000 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
