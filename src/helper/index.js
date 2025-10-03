@@ -13,7 +13,7 @@ export const generateContent = async (userQuery) => {
     const response = await result.response;
     const text = response.text();
     console.log("Generated content:", text);
-    return text;
+    return purifyCode(text);
   } catch (error) {
     console.error("Error generating content:", error);
     throw new Error("Failed to generate content from Gemini API");
@@ -24,9 +24,9 @@ export const promptGenerator = (userQuery) => {
   return `Create a simple React functional component based on this description: ${userQuery}
         
     Requirements:
-    - Use React.createElement instead of JSX syntax 20
+    - Use React.createElement instead of JSX syntax
     - Keep it simple, no imports needed
-    - Name the function 'Generated Component'
+    - Name the function 'GeneratedComponent'
     - Use inline styles as regular JavaScript objects
     - Don't use any JSX syntax, use React.createElement instead
     - Don't include any markdown or code block syntax
@@ -36,7 +36,7 @@ export const promptGenerator = (userQuery) => {
      function GeneratedComponent() {
         return React.createElement(
          'div',
-          { style: { padding: 10px } },
+          { style: { padding: '10px' } },
           React.createElement(
             'button',
               {
@@ -45,12 +45,27 @@ export const promptGenerator = (userQuery) => {
                         color: 'white',
                         padding: '10px'
                         },
-                        onclick: () => alert('Clicked!')
+                        onClick: () => alert('Clicked!')
               },
               'Click me'
             )
           );
-  }
+  };
           
-          Return only the component code without any markdown fomatting or code block syntax.`;
+          Return only the component code without any markdown formatting or code block syntax.`;
 };
+
+export const purifyCode = (code) =>{
+  // remove any import statement
+  code = code.replace(/^import\s+.*?from\s+['"][^'"]+['"];?\s*$/gm, '');
+  code = code.replace(/^import\s+{.*?}\s+from\s+['"][^'"]+['"];?\s*$/gm, '');
+  
+  // remove language specifiers
+  code = code.replace(/```(javascript|js|jsx|typescript|ts|tsx|react)?\s*\n?/gi, '');
+  code = code.replace(/```\s*$/gm, '');
+  
+  // remove any export statement
+  code = code.replace(/^export\s+.*?;?\s*$/gm, '');
+  
+  return code.trim();
+}

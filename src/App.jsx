@@ -5,7 +5,7 @@ import { faGem } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { generateContent } from "./helper";
+import { generateContent, purifyCode } from "./helper";
 
 const App = () => {
   const [info, setInfo] = useState({
@@ -16,7 +16,7 @@ const App = () => {
   });
 
   const handleChange = useCallback((e) => {
-    setInfo((prev) => ({ ...prev, userQuery: e.target.value, error: "" }));
+    setInfo((prev) => ({ ...prev, userQuery: e.target.value, error: "", generatedCode: null }));
   }, []);
 
   const handleGenerate = useCallback(async () => {
@@ -32,13 +32,30 @@ const App = () => {
 
     try {
       const response = await generateContent(info.userQuery);
-      console.log(response);
+      let componentCode = response;
+      
+      componentCode = purifyCode(componentCode);
+      let Component = new Function('React',
+        `
+        try{
+          ${componentCode}
+          return GeneratedComponent;
+        }catch(err){
+          console.error('Component execution error:', err);
+          throw new Error('Failed to execute generated component: ' + err.message);
+        }
+        `
+      )(React);
 
-      // Update the generated code state with the response
+      if (typeof Component !== 'function') {
+        throw new Error('Generated code did not return a valid React component');
+      }
+
       setInfo((prev) => ({
         ...prev,
-        generatedCode: response || "No content generated",
+        generatedCode: <Component />,
         isLoading: false,
+        userQuery: ''
       }));
     } catch (error) {
       console.error("Generation error:", error);
@@ -68,7 +85,7 @@ const App = () => {
           style={{ color: "red" }}
         />
         {info?.generatedCode ? (
-          <span>{info?.generatedCode}</span>
+          <span className="component-container">{info?.generatedCode}</span>
         ) : info.isLoading ? (
           <div className="loading-container">
             <FontAwesomeIcon icon={faSpinner} spin size="2x" />
