@@ -30,13 +30,25 @@ const App = () => {
 
     setInfo((prev) => ({ ...prev, isLoading: true, error: "" }));
 
-    const response = await generateContent(info.userQuery);
-    setInfo((prev) => ({
-      ...prev,
-      isLoading: false,
-      error: "",
-      generatedCode: response,
-    }));
+    try {
+      const response = await generateContent(info.userQuery);
+      console.log(response);
+
+      // Update the generated code state with the response
+      setInfo((prev) => ({
+        ...prev,
+        generatedCode: response || "No content generated",
+        isLoading: false,
+      }));
+    } catch (error) {
+      console.error("Generation error:", error);
+      setInfo((prev) => ({
+        ...prev,
+        error: error.message || "Something went wrong, please try again",
+        isLoading: false,
+      }));
+      toast.error("Failed to generate content. Please try again.");
+    }
   }, [info.userQuery]);
 
   return (
