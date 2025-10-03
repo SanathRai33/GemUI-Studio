@@ -6,6 +6,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { generateContent, purifyCode } from "./helper";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const App = () => {
   const [info, setInfo] = useState({
@@ -13,11 +14,19 @@ const App = () => {
     generatedCode: "",
     isLoading: false,
     error: "",
+    mood: 'dark'
   });
 
   const handleChange = useCallback((e) => {
     setInfo((prev) => ({ ...prev, userQuery: e.target.value, error: "", generatedCode: null }));
   }, []);
+
+  const handleMood = () =>{
+    setInfo((prev)=>({
+      ...prev,
+      mood: info.mood==='dark' ? 'light' : 'dark',
+    }))
+  }
 
   const handleGenerate = useCallback(async () => {
     if (info.userQuery.trim() === "") {
@@ -69,7 +78,12 @@ const App = () => {
   }, [info.userQuery]);
 
   return (
-    <div className="parent-container">
+    <div className={`parent-container ${info.mood === 'dark' ? 'dark' : ''}`}>
+      <div className="mood-container">
+        <button onClick={handleMood}>
+          {info.mood === 'dark' ? <FaSun /> : <FaMoon />}
+        </button>
+      </div>
       <div className="preview-container">
         <ToastContainer
           position="top-center"
