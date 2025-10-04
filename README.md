@@ -185,8 +185,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Your Name**
 
-- GitHub: [@your-username](https://github.com/SanathRai33)
-- Email: [your-email@example.com](mailto:sanathrai03@gmail.com)
+- GitHub: [@SanathRai33](https://github.com/SanathRai33)
+- Email: [sanathrai03@gmail.com](mailto:sanathrai03@gmail.com)
 - Live Demo: [Click here](https://your-demo-link.com)
 
 ---
