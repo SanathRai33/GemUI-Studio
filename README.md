@@ -187,7 +187,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 - GitHub: [@SanathRai33](https://github.com/SanathRai33)
 - Email: [sanathrai03@gmail.com](mailto:sanathrai03@gmail.com)
-- Live Demo: [Click here](https://your-demo-link.com)
+- Live Demo: [Click here](https://sanathrai33.github.io/GemUI-Studio/)
 
 ---
 
