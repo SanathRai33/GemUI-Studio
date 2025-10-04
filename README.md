@@ -52,7 +52,7 @@ GemUI/
 
 ## 📸 Preview
 
-<img width="1919" height="910" alt="GemUI Preview" src="https://github.com/SanathRai33/GemUI/assets/preview-image.png" />
+<img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/95e65e14-7152-47b7-addd-ece4be80b5ce" />
 
 The app features a clean, modern interface with:
 - A large preview area for generated components
